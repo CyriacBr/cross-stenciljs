@@ -1,0 +1,34 @@
+{
+  "name": "@test/ui-core",
+  "version": "0.0.1",
+  "description": "Stencil Component Starter",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/ui-core/ui-core.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs --next && yarn run build:tsc",
+    "build:tsc": "tsc src/index.ts --esModuleInterop --outDir dist/tsc --declaration",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@stencil/core": "^1.9.0-18",
+    "@stencil/react-output-target": "^0.0.3",
+    "@types/fs-extra": "^8.1.0",
+    "cp-cli": "^2.0.0",
+    "cross-env": "^7.0.0",
+    "fs-extra": "^8.1.0"
+  },
+  "license": "MIT"
+}
