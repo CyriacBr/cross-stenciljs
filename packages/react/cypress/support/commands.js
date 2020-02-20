@@ -39,3 +39,34 @@ Cypress.Commands.add("defineCustomElements", () => {
       await loader.defineCustomElements(win);
     });
 });
+
+/**
+ * Overwritting `cypress-react-unit-test` command
+ */
+Cypress.Commands.add("injectReactDOM", () => {
+  return cy
+    .log("Injecting ReactDOM and Stencil bundle for Unit Testing")
+    .then(() => {
+      const scripts = Cypress.modules
+        .map(module =>
+          module.name.endsWith("module")
+            ? `<script type="module">${module.source}</script>`
+            : `<script>${module.source}</script>`
+        )
+        .join("");
+
+      const html = `
+        <head>
+          <meta charset="utf-8">
+        </head>
+        <body>
+          <div id="cypress-jsdom"></div>
+          ${scripts}
+        </body>
+      `;
+
+      const document = cy.state("document");
+      document.write(html);
+      document.close();
+    });
+});
