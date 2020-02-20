@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
     "declaration": false,
-    "experimentalDecorators": true,
     "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "module": "esnext",
-    "target": "es5"
+    "target": "es6",
+    "allowJs": true,
+    "types": ["@pyoner/svelte-types"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

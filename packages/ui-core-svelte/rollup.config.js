@@ -4,11 +4,13 @@ import commonjs from "rollup-plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import autoPreprocess from 'svelte-preprocess';
+import typescript from "rollup-plugin-typescript2"
+import typescriptCompiler from "typescript"
 
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-  input: "src/main.js",
+  input: "src/index.ts",
   output: {
     sourcemap: !production,
     format: "iife",
@@ -18,17 +20,13 @@ export default {
   plugins: [
     svelte({
       dev: !production,
-      // Tell the compiler to output a custom element.
+      extensions: [".svelte"],
       customElement: true,
       preprocess: autoPreprocess({ /* options */ })
     }),
-    // If you have external dependencies installed from
-    // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration —
-    // consult the documentation for details:
-    // https://github.com/rollup/rollup-plugin-commonjs
+    typescript({ typescript: typescriptCompiler }),
+    commonjs({ include: "node_modules/**" }),
     resolve(),
-    commonjs(),
 
     // Enable live reloading in development mode
     !production && livereload("public"),

@@ -1,5 +1,22 @@
 <script lang="typescript">
+  import { MyObject, MyClass } from "./interfaces.ts";
+  export let headertitle: string;
+  export let myobject: MyObject;
+  export let myclassinstance: MyClass;
 
+  function dispatchClickEvent(e) {
+    const event = new CustomEvent("event", {
+      detail: {
+        headertitle,
+        myobject,
+        myclassinstance
+      },
+      bubbles: true,
+      cancelable: true,
+      composed: true
+    });
+    this.dispatchEvent(event);
+  }
 </script>
 
 <style>
@@ -42,8 +59,8 @@
 
 <svelte:options tag="x-box2" />
 <template>
-  <div class="box" onClick={this.onClick.bind(this)}>
-    <span class="title">{this.headerTitle}</span>
+  <div class="box" on:click="{dispatchClickEvent}">
+    <span class="title">{headertitle}</span>
     <div class="body">
       <slot name="body" />
     </div>

@@ -32,11 +32,16 @@ before(() => {
     //   type: "file",
     //   location: "../ui-core/dist/ui-core/ui-core.js"
     // },
+    // {
+    //   name: "ui-core-module",
+    //   type: "file",
+    //   location: "../ui-core/dist/custom-elements-bundle/index.mjs"
+    // },
     {
-      name: "ui-core-module",
+      name: "ui-core",
       type: "file",
-      location: "../ui-core/dist/custom-elements-bundle/index.mjs"
-    }
+      location: "../ui-core-svelte/public/bundle.js"
+    },
   ];
   cy.log("Adding web components bundle to UMD module cache").then(() => {
     for (const module of moduleNames) {
