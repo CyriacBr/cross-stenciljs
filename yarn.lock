@@ -2081,7 +2081,7 @@
   resolved "https://registry.yarnpkg.com/@pyoner/svelte-types/-/svelte-types-3.4.4-2.tgz#0bc64255d56e82a5e7f3d0b31b324551a77da6b0"
   integrity sha512-5oQsFCU9pxu1mdA72e2XOqVmheSQfpaQnsmvO4FTEd6D3k3Wx3Nr4s2m0gfqjGLHoGGEo9FOK4xQXXX7D5Uz6A==
 
-"@rollup/plugin-commonjs@^11.0.0":
+"@rollup/plugin-commonjs@^11.0.0", "@rollup/plugin-commonjs@^11.0.2":
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-commonjs/-/plugin-commonjs-11.0.2.tgz#837cc6950752327cb90177b608f0928a4e60b582"
   integrity sha512-MPYGZr0qdbV5zZj8/2AuomVpnRVXRU5XKXb3HVniwRoRCreGlf5kOE081isNWeiLIi6IYkwTX9zE0/c7V8g81g==
@@ -2099,7 +2099,7 @@
   dependencies:
     "@rollup/pluginutils" "^3.0.4"
 
-"@rollup/plugin-node-resolve@^7.1.0":
+"@rollup/plugin-node-resolve@^7.1.0", "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.1.tgz#8c6e59c4b28baf9d223028d0e450e06a485bb2b7"
   integrity sha512-14ddhD7TnemeHE97a4rLOhobfYvUVcaYuqTnL8Ti7Jxi9V9Jr5LY7Gko4HZ5k4h4vqQM0gBQt6tsp9xXW94WPA==
@@ -12092,7 +12092,7 @@ rollup-pluginutils@2.8.2, rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.3.3, 
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^1.18.0, rollup@^1.27.8:
+rollup@^1.18.0, rollup@^1.27.8, rollup@^1.31.1:
   version "1.31.1"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.31.1.tgz#4170d6f87148d46e5fbe29b493f8f3ea3453c96f"
   integrity sha512-2JREN1YdrS/kpPzEd33ZjtuNbOuBC3ePfuZBdKEybvqcEcszW1ckyVqzcEiEe0nE8sqHK+pbJg+PsAgRJ8+1dg==

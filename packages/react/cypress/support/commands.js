@@ -63,6 +63,7 @@ Cypress.Commands.add("injectReactDOM", () => {
           <div id="cypress-jsdom"></div>
           <x-box2 headertitle="Hello World">
           </x-box2>
+          <script data-stencil-namespace="ui-core"></script>
           ${scripts}
         </body>
       `;

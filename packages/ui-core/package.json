@@ -17,18 +17,25 @@
   "scripts": {
     "build": "stencil build --docs --prod --next && yarn run build:tsc",
     "build:tsc": "tsc src/index.ts --esModuleInterop --outDir dist/tsc --declaration",
+    "build:elements": "rollup ./dist/custom-elements-bundle/index.mjs --format iife -o ./dist/custom-elements-bundle/bundle.js --name _WCBundle",
+    "build:bundle-cjs": "rollup ./dist/cjs/ui-core.cjs.js --format iife -o ./dist/cjs/bundle.js --name _WC_CJSBundle",
+    "rollup": "rollup -c",
+    "build:bundle-mjs": "rollup ./dist/esm/ui-core.mjs --format iife -o ./dist/esm/bundle.js",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "@stencil/core": "^1.9.0-18",
     "@stencil/react-output-target": "^0.0.3",
     "@types/fs-extra": "^8.1.0",
     "cp-cli": "^2.0.0",
     "cross-env": "^7.0.0",
-    "fs-extra": "^8.1.0"
+    "fs-extra": "^8.1.0",
+    "rollup": "^1.31.1"
   },
   "license": "MIT"
 }
