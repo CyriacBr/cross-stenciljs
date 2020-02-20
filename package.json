@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "stencil-react": "^0.0.1-8"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "add:ui-core": "lerna add @test/ui-core --scope=@test/react",
+    "add:react": "lerna add @test/react --scope=@test/react-example"
+  }
+}
