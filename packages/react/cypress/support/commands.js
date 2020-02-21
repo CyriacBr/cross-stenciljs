@@ -24,18 +24,43 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-const loader = require("@test/ui-core/loader");
 /// <reference types="cypress" />
 /* eslint-disable */
 /**
- * Adding a command to register web components
+ * Adding a command to wait for the components
+ * to be fully loaded (see bottom of ui-core/dist/custom-elements-bundle/bundle.js)
  */
-Cypress.Commands.add("defineCustomElements", () => {
+Cypress.Commands.add("ensureCustomElements", () => {
+  return cy.wait(200);
+});
+
+/**
+ * Overwritting `cypress-react-unit-test` command
+ */
+Cypress.Commands.add("injectReactDOM", () => {
   return cy
-    .log("Defining custom elements")
-    .window()
-    .then(async win => {
-      await loader.applyPolyfills();
-      await loader.defineCustomElements(win);
+    .log("Injecting ReactDOM and Stencil bundle for Unit Testing")
+    .then(() => {
+      const scripts = Cypress.modules
+        .map(module =>
+          module.name.endsWith("module")
+            ? `<script type="module">${module.source}</script>`
+            : `<script>${module.source}</script>`
+        )
+        .join("");
+
+      const html = `
+        <head>
+          <meta charset="utf-8">
+        </head>
+        <body>
+          <div id="cypress-jsdom"></div>
+          ${scripts}
+        </body>
+      `;
+
+      const document = cy.state("document");
+      document.write(html);
+      document.close();
     });
 });

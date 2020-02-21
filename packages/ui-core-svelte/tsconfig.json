@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "lib": ["dom", "es2017"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es6",
+    "allowJs": true,
+    "types": ["@pyoner/svelte-types"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

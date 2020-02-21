@@ -14,8 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
 import "cypress-react-unit-test";
+import "./commands";
 
 /// <reference types="cypress" />
 /* eslint-disable */
@@ -30,8 +30,13 @@ before(() => {
     {
       name: "ui-core",
       type: "file",
-      location: "../ui-core/dist/ui-core/ui-core.js"
-    }
+      location: "../ui-core/dist/custom-elements-bundle/bundle.js"
+    },
+    // {
+    //   name: "ui-core-svelte",
+    //   type: "file",
+    //   location: "../ui-core-svelte/public/bundle.js"
+    // },
   ];
   cy.log("Adding web components bundle to UMD module cache").then(() => {
     for (const module of moduleNames) {
