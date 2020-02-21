@@ -12,8 +12,7 @@ describe("<Box />", () => {
   const DummyFooter = () => <span>I am a footer</span>;
   let receivedProps: BoxProps = null;
   before(() => {
-    //@ts-ignore
-    (cy.ensureCustomElements() as Cypress.Chainable).mount(
+    cy.ensureCustomElements().mount(
       (
         <Box
           Footer={() => <DummyFooter />}
@@ -29,7 +28,9 @@ describe("<Box />", () => {
   });
 
   it(`correctly forwards events`, () => {
-    cy.state('window').document.querySelector('.box').click();
+    cy.state("window")
+      .document.querySelector(".box")
+      .click();
     expect(receivedProps).not.to.be.null;
   });
 
