@@ -27,17 +27,18 @@ o
 |-- lerna.json
 `-- package.json
 ```
-3. Write your web components using Stencil inside `ui-core`.
+3. Run `yarn install` at the root of the repo
+3. Write your web components using [Stencil](https://stenciljs.com/docs/introduction) inside the `ui-core` package.
 4. `yarn build`
 5. Wrap the web components with framework specific components inside the `react/src/lib`... folder.
 6. `yarn build` and `yarn publish` to consume in a real app.
 
 ## Features
 * ✅ Build Stencil components
-* ❌ React integration:  
+* ✅ React integration:  
     * ✅ Complete communication and props forwarding
     * ✅ Runnable example
-    * ❌ Unit testing
+    * ✅ Unit testing
 * ❌ VueJS integration
 * ❌ Angular integration
 
@@ -134,43 +135,53 @@ export const Box: FC<BoxProps> = ({
 ```
 You can then proceed to visually "test" your component by using it inside `react/src/App.tsx` and running `yarn start`.
 
-❗️ Now comes the troubles. Unit testing `Box`, or even `XBox` (whatever React component that consumes a web component) seems impossible currently. The current tooling such as `react-testing-library` is unable to render web components.  
-We need a testing library that leverage a real browser while letting us test component units instead of a full blown and served app.  
-So far `cypress-react-unit-test` ticks all the boxes. But still, stencil components do not seem to fully render.  
-Here's how `x-box` is rendered inside `App.tsx` when running `yarn start`:
-```html
-<x-box class="hydrated">
-    <!---->
-    <div class="box">
-        <span class="title">Hello World</span>
-        <div class="body">
-            <span slot="body">I am a web component</span>
-        </div>
-        <span class="footer">
-            <span slot="footer">
-                <span>I am a footer</span>
-            </span>
-        </span>
-    </div>
-</x-box>
-```
-A fully hydrated, styled and functionnal custom element.  
-However, here's what is rendered when we run Cypress:  
-```html
-<div id="cypress-jsdom">
-    <x-box>
-        <span slot="body">I am a web component</span>
-        <span slot="footer">
-            <span>I am a footer</span>
-        </span>
-    </x-box>
-</div>
-```
-Unhydrated, unstyled with the `title` prop not being passed, as well as the `div .box` element missing.  
-This seems to me that Stencil bundle isn't correctly injected or working inside Cypress' rendered `document`.  
+For unit testing, we're using `cypress-react-unit-test` and [some hacks](https://github.com/CyriacBr/cross-stenciljs/issues/2#issuecomment-589597172) which seems to be so far the only reasonable solution
+to unit test a react component who consumes a web component.  
+You'll need to be a bit famillar with `Cypress` for that but all you have to do is write a `.spec.tsx` file
+inside `cypress/integration`, then run `yarn cypress`. Here's an example of a unit test file:
+```tsx
+describe("<Box />", () => {
+  const instance = new MyClass("bar");
+  const obj: MyObject = {
+    foo: "bar"
+  };
+  const DummyFooter = () => <span>I am a footer</span>;
+  let receivedProps: BoxProps = null;
+  before(() => {
+    cy.ensureCustomElements().mount(
+      (
+        <Box
+          Footer={() => <DummyFooter />}
+          myClassInstance={instance}
+          myObject={obj}
+          onEvent={props => {
+            receivedProps = props;
+          }}
+          title="Hello World!"
+        />
+      ) as any
+    );
+  });
 
-`cypress-react-unit-test` injects `React` and `ReactDOM` bundles inside the testing document, which allows us to `ReactDOM.render` on the fly. 
-[See more details here](https://github.com/bahmutov/cypress-react-unit-test/blob/master/lib/index.ts).  
-I tried to mimic that logic by injecting stencil built files, to no avail. For example, injecting `ui-core/dist/ui-core/ui-core.js` (the recommended file to attach to the script tag according to Stencil docs) cause an error. `Uncaught TypeError: Failed to construct 'URL': Invalid base URL`.
+  it(`correctly forwards events`, () => {
+    cy.state('window').document.querySelector('.box').click();
+    expect(receivedProps).not.to.be.null;
+  });
 
-My attemps can be found sindie `react/cypress/supports`. PRs are welcomed!
+  it(`correctly passes object props`, () => {
+    expect(receivedProps.myObject).to.deep.eq({ foo: "bar" });
+  });
+
+  it(`correctly passes class instances props`, () => {
+    expect(receivedProps.myClassInstance.foo).to.eq("bar");
+  });
+
+  it(`correctly render react components as children`, () => {
+    cy.contains("I am a footer");
+  });
+});
+```
+
+### VueJS
+
+### Angular
