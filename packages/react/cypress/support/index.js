@@ -30,18 +30,8 @@ before(() => {
     {
       name: "ui-core",
       type: "file",
-      location: "../ui-core/dist/ui-core/ui-core.js"
+      location: "../ui-core/dist/custom-elements-bundle/bundle.js"
     },
-    // {
-    //   name: "ui-core-module",
-    //   type: "file",
-    //   location: "../ui-core/dist/custom-elements-bundle/index.mjs"
-    // },
-    // {
-    //   name: "ui-core",
-    //   type: "file",
-    //   location: "../ui-core/dist/cjs/bundle.js"
-    // },
     // {
     //   name: "ui-core-svelte",
     //   type: "file",

@@ -13,7 +13,7 @@ describe("<Box />", () => {
   let receivedProps: BoxProps = null;
   before(() => {
     //@ts-ignore
-    (cy.defineCustomElements() as Cypress.Chainable).mount(
+    (cy.ensureCustomElements() as Cypress.Chainable).mount(
       (
         <Box
           Footer={() => <DummyFooter />}
@@ -29,7 +29,7 @@ describe("<Box />", () => {
   });
 
   it(`correctly forwards events`, () => {
-    cy.get(".box").click();
+    cy.state('window').document.querySelector('.box').click();
     expect(receivedProps).not.to.be.null;
   });
 

@@ -24,20 +24,14 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-const loader = require("@test/ui-core/loader");
 /// <reference types="cypress" />
 /* eslint-disable */
 /**
- * Adding a command to register web components
+ * Adding a command to wait for the components
+ * to be fully loaded (see bottom of ui-core/dist/custom-elements-bundle/bundle.js)
  */
-Cypress.Commands.add("defineCustomElements", () => {
-  return cy
-    .log("Defining custom elements")
-    .window()
-    .then(async win => {
-      await loader.applyPolyfills();
-      await loader.defineCustomElements(win);
-    });
+Cypress.Commands.add("ensureCustomElements", () => {
+  return cy.wait(200);
 });
 
 /**
@@ -61,9 +55,6 @@ Cypress.Commands.add("injectReactDOM", () => {
         </head>
         <body>
           <div id="cypress-jsdom"></div>
-          <x-box2 headertitle="Hello World">
-          </x-box2>
-          <script data-stencil-namespace="ui-core"></script>
           ${scripts}
         </body>
       `;
